@@ -7,8 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('My API')
-    .setDescription('APIドキュメント')
+    .setTitle('Open API')
+    .setDescription('Open APIドキュメント')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
