@@ -14,7 +14,6 @@ export class AttendanceController {
       startAttendanceDto.userId,
       startAttendanceDto.date,
       startAttendanceDto.startTime,
-      startAttendanceDto.endTime,
     );
   }
 
