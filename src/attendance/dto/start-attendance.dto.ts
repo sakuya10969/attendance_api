@@ -25,12 +25,4 @@ export class StartAttendanceDto {
   @IsDateString()
   @IsNotEmpty()
   startTime: Date;
-
-  @ApiProperty({
-    description: '終了時間',
-    example: '2023-01-01T18:00:00.000Z',
-  })
-  @IsDateString()
-  @IsOptional()
-  endTime: Date;
 }
