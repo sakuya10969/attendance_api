@@ -1,19 +1,25 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 
 import { AttendanceService } from './attendance.service';
-import { CreateAttendanceDto } from './dto/create-attendance.dto';
+import { StartAttendanceDto } from './dto/start-attendance.dto';
+import { EndAttendanceDto } from './dto/end-attendance.dto';
 
 @Controller('attendance')
 export class AttendanceController {
   constructor(private readonly attendanceService: AttendanceService) {}
 
-  @Post()
-  create(@Body() createAttendanceDto: CreateAttendanceDto) {
+  @Post('start')
+  start(@Body() startAttendanceDto: StartAttendanceDto) {
     return this.attendanceService.startAttendance(
-      createAttendanceDto.userId,
-      createAttendanceDto.date,
-      createAttendanceDto.startTime,
-      createAttendanceDto.endTime,
+      startAttendanceDto.userId,
+      startAttendanceDto.date,
+      startAttendanceDto.startTime,
+      startAttendanceDto.endTime,
     );
+  }
+
+  @Post('end')
+  end(@Body() endAttendanceDto: EndAttendanceDto) {
+    return this.attendanceService.endAttendance(endAttendanceDto.userId, endAttendanceDto.endTime);
   }
 }

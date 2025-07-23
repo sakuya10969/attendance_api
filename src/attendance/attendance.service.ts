@@ -18,4 +18,21 @@ export class AttendanceService {
 
     return attendance;
   }
+
+  async endAttendance(userId: string, endTime: Date) {
+    const record = await this.prisma.attendance.findFirst({
+      where: {
+        userId,
+        endTime: null,
+      },
+    });
+  
+    if (!record) throw new Error("該当の勤怠レコードが見つかりません");
+  
+    return await this.prisma.attendance.update({
+      where: { id: record.id },
+      data: { endTime },
+    });
+  }
+  
 }
