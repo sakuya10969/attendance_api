@@ -7,7 +7,7 @@ export class BreakService {
 
     async startBreak(attendanceId: string, date: Date, startTime: Date) {
         const breakRecord = await this.prisma.break.create({
-            data: { attendanceId, date, startTime },
+            data: { attendanceId, date, startTime, endTime: null },
         });
         
         return breakRecord;
