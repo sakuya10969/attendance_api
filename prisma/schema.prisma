@@ -35,4 +35,20 @@ model Attendance {
   endTime   DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  breaks    Break[]
+
+  @@map("attendances")
+}
+
+model Break {
+  id        String   @id @default(uuid())
+  attendance Attendance @relation(fields: [attendanceId], references: [id])
+  attendanceId String
+  date      DateTime @db.Date
+  startTime DateTime
+  endTime   DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("breaks")
 }
