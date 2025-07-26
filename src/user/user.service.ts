@@ -15,41 +15,4 @@ export class UserService {
 
     return user;
   }
-
-  async findAll() {
-    const users = await this.prisma.user.findMany();
-
-    return users;
-  }
-
-  async findOne(id: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { id },
-    });
-
-    return user;
-  }
-
-  async findByEmail(email: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { email },
-    });
-
-    return user;
-  }
-
-  async update(id: string, updateUserDto: UpdateUserDto) {
-    await this.prisma.user.update({
-      where: { id },
-      data: updateUserDto,
-    });
-  }
-
-  async remove(id: string) {
-    await this.prisma.user.delete({
-      where: { id },
-    });
-
-    return { message: 'User deleted successfully' };
-  }
 }
