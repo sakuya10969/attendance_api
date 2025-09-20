@@ -1,4 +1,5 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Res } from '@nestjs/common';
+import { Response } from 'express';
 
 import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/sign-up.dto';
@@ -17,5 +18,14 @@ export class AuthController {
   @Post('signIn')
   async signIn(@Body() dto: SignInDto) {
     return this.authService.signIn(dto);
+  }
+
+  @Post('signOut')
+  async signOut(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('auth_token', {
+      path: '/',
+      domain: process.env.COOKIE_DOMAIN || undefined,
+    });
+    return { ok: true };
   }
 }
