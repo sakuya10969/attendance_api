@@ -4,10 +4,10 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class AttendanceService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   async startAttendance(userId: string, date: Date, startTime: Date) {
-    const attendance = await this.prisma.attendance.create({
+    const attendance = await this.prismaService.attendance.create({
       data: {
         userId,
         date,
@@ -20,7 +20,7 @@ export class AttendanceService {
   }
 
   async endAttendance(userId: string, endTime: Date) {
-    const record = await this.prisma.attendance.findFirst({
+    const record = await this.prismaService.attendance.findFirst({
       where: {
         userId,
         endTime: null,
@@ -29,7 +29,7 @@ export class AttendanceService {
   
     if (!record) throw new Error("該当の勤怠レコードが見つかりません");
   
-    return await this.prisma.attendance.update({
+    return await this.prismaService.attendance.update({
       where: { id: record.id },
       data: { endTime },
     });
