@@ -21,4 +21,15 @@ export class AttendanceDataService {
 
     return attendances;
   }
+
+  async findById(attendanceId: string) {
+    const attendance = await this.prismaService.attendance.findUnique({
+      where: { id: attendanceId },
+      include: {
+        breaks: true,
+      },
+    })
+
+    return attendance;
+  }
 }
