@@ -11,17 +11,17 @@ import { Public } from './public.decorator';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('signUp')
+  @Post('sign-up')
   async signUp(@Body() dto: SignUpDto) {
     return this.authService.signUp(dto);
   }
 
-  @Post('signIn')
+  @Post('sign-in')
   async signIn(@Body() dto: SignInDto) {
     return this.authService.signIn(dto);
   }
 
-  @Post('signOut')
+  @Post('sign-out')
   async signOut(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('auth_token', {
       path: '/',
