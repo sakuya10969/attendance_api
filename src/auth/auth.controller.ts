@@ -12,13 +12,21 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('sign-up')
-  async signUp(@Body() dto: SignUpDto) {
-    return this.authService.signUp(dto);
+  async signUp(@Body() signUpDto: SignUpDto) {
+    return this.authService.signUp(signUpDto);
   }
 
   @Post('sign-in')
-  async signIn(@Body() dto: SignInDto) {
-    return this.authService.signIn(dto);
+  async signIn(@Body() signInDto: SignInDto, @Res({ passthrough: true }) res: Response) {
+    const user = await this.authService.signIn(signInDto);
+    res.cookie('auth_token', user.accessToken, {
+      path: '/',
+      httpOnly: true,
+      secure: false,
+      maxAge: 6 * 60 * 60 * 1000,
+    });
+
+    return user;
   }
 
   @Post('sign-out')
